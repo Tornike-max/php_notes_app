@@ -1,0 +1,17 @@
+{
+  "name": "toko/php_notes_app",
+  "authors": [
+    {
+      "name": "Tornike-max",
+      "email": "84152983+Tornike-max@users.noreply.github.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Core\\": "Core/",
+      "Models\\": "Models/",
+      "Controllers\\": "Controllers/"
+    }
+  }
+}
