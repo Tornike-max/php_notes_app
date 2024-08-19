@@ -9,6 +9,10 @@ use Core\Router;
 $router = new Router();
 
 $router->get('/', [NoteController::class, 'index']);
+$router->get('/edit', [NoteController::class, 'edit']);
+$router->put('/update', [NoteController::class, 'update']);
+
+
 $router->get('/create', [NoteController::class, 'create']);
 
 $router->register();

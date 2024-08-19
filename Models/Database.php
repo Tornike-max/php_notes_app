@@ -41,6 +41,20 @@ class Database
         }
     }
 
+    public function leftJoin($leftTable, $rightTable, $id)
+    {
+        $this->statement = $this->pdo->prepare("SELECT * FROM $leftTable join $rightTable on $leftTable.id = $rightTable.user_id where $rightTable.id = :id");
+        $this->statement->bindValue(':id', $id);
+
+        if ($this->statement->execute()) {
+            $data = $this->statement->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        } else {
+            http_response_code(401);
+            throw new PDOException();
+        }
+    }
+
     public function findOrFail($table, $id)
     {
         $data = $this->find($table, $id);

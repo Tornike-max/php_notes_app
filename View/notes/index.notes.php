@@ -10,14 +10,20 @@
                     <th class="text-start px-2">Id</th>
                     <th class="text-start px-2">Body</th>
                     <th class="text-start px-2">User</th>
+                    <th class="text-start px-2">Actions</th>
                 </tr>
             </thead>
             <tbody class="w-full">
                 <?php foreach ($data as $note): ?>
-                    <tr class="bg-gray-200">
+                    <tr class="bg-gray-200 border-b border-gray-500">
                         <td class="py-2 px-2"><?= $note['id']; ?></td>
                         <td class="py-2 px-2"><?= $note['body']; ?></td>
                         <td class="py-2 px-2"><?= $note['user_id']; ?></td>
+                        <td class="py-2 px-2">
+                            <a href="/edit?id=<?= $note['id'] ?>" class="py-2 px-3 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white duration-150 transition-all">Edit</a>
+                            <button class="py-2 px-3 rounded-md bg-red-500 hover:bg-red-600 text-white duration-150 transition-all">Delete</button>
+
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

@@ -23,9 +23,27 @@ class NoteController
 
     public function store() {}
 
-    public function edit() {}
+    public function edit()
+    {
+        $model = new Note();
+        $id = $_GET['id'];
 
-    public function update() {}
+        $note = $model->find('notes', $id);
+
+        $joined = $model->leftJoin('users', 'notes', $note['id']);
+
+        return view('../view/notes/edit.note.php', [
+            'note' => $note,
+            'joinedNote' => $joined
+        ]);
+    }
+
+    public function update()
+    {
+        $id = $_GET['id'];
+
+        dd($id);
+    }
 
     public function destroy() {}
 }
