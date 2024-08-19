@@ -1,13 +1,10 @@
 <?php
 
 
-function view($path)
+function view($path, $attributes = [])
 {
-    if (!$path) {
-        return;
-    }
-
-    return require $path;
+    extract($attributes);
+    require $path;
 }
 
 function dd($value)
@@ -26,4 +23,19 @@ function getPath()
 function getMethod()
 {
     return $_SERVER['REQUEST_METHOD'];
+}
+
+function abort($responseCode = 404)
+{
+    http_response_code($responseCode);
+    require "../views/$responseCode.php";
+    die();
+}
+
+function hasData($data)
+{
+    if (!$data) {
+        abort(404);
+    }
+    return true;
 }
