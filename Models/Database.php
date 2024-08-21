@@ -65,4 +65,24 @@ class Database
 
         return $data;
     }
+
+    public function update($table, $id, $data)
+    {
+        $setPart = implode(', ', array_map(fn($key) => "$key = :$key", array_keys($data)));
+
+        $this->statement = $this->pdo->prepare("UPDATE $table SET $setPart WHERE id = :id");
+
+        $this->statement->bindValue(':id', $id);
+
+        foreach ($data as $key => $val) {
+            $this->statement->bindValue(":$key", $val);
+        }
+
+        if ($this->statement->execute()) {
+            return $data;
+        } else {
+            http_response_code(401);
+            throw new PDOException("Failed to update record in $table");
+        }
+    }
 }

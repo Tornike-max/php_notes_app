@@ -2,7 +2,6 @@
 
 namespace Core;
 
-use Exception;
 
 class Router
 {
@@ -42,6 +41,10 @@ class Router
     {
         $path = getPath()['path'];
         $method = getMethod();
+
+        if (isset(getData()['_method'])) {
+            $method = getData()['_method'];
+        }
 
         if (isset($this->routes[$method][$path])) {
             $callback = $this->routes[$method][$path];

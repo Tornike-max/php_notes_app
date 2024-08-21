@@ -39,3 +39,9 @@ function hasData($data)
     }
     return true;
 }
+
+function getData()
+{
+    $data = $_POST;
+    return $data;
+}

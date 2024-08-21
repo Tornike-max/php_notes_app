@@ -4,7 +4,7 @@
 
 <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <form method="POST" action="/update?id=<?= $note['id'] ?>">
+        <form method="post" action="/update?id=<?= $note['id'] ?>">
             <input type="hidden" name="_method" value="PUT" />
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
@@ -21,16 +21,18 @@
                         </div>
 
                         <div class="w-full">
-                            <label class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                            <label class="block text-sm font-medium leading-6 text-gray-900">User</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                     <select name="user_id" id="user_id" class="block flex-1 border-0 bg-transparent py-2 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <?php foreach ($users as $user): ?>
+                                            <option value="<?php $user['id'] ?>"><?= $user['name'] ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 

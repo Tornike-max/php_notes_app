@@ -2,8 +2,10 @@
 
 namespace Controllers\Http;
 
+use Core\Validation;
 use Models\Database;
 use Models\Note;
+use Models\User;
 
 class NoteController
 {
@@ -32,17 +34,39 @@ class NoteController
 
         $joined = $model->leftJoin('users', 'notes', $note['id']);
 
+        $users = $model->query('select * from users');
+
         return view('../view/notes/edit.note.php', [
             'note' => $note,
-            'joinedNote' => $joined
+            'joinedNote' => $joined,
+            'users' => $users
         ]);
     }
 
     public function update()
     {
         $id = $_GET['id'];
+        $errors = [];
 
-        dd($id);
+
+        $model = new Note();
+        $data = getData();
+
+        $validation = new Validation();
+        $validation->validation($data['body'], [
+            'size' => 5,
+        ]);
+
+        if ($validation) {
+            return view('../../View/notes/edit.note.php', [
+                'errors' => $errors
+            ]);
+        }
+        $note = $model->update('notes', $id, $data);
+        if (isset($note)) {
+            header('Location: /edit');
+        } else {
+        }
     }
 
     public function destroy() {}
