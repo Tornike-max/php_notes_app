@@ -8,25 +8,30 @@
             <input type="hidden" name="_method" value="PUT" />
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Edit note #<?= $note['id'] ?></h2>
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">Edit note #<?= $note['id'] ?? '' ?></h2>
 
                     <div class="w-full m-auto flex justiify-center items-center flex-col mt-10 gap-x-6 gap-y-86">
                         <div class="w-full">
                             <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Body</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                    <textarea type="text" name="body" id="body" class="block flex-1 border-0 bg-transparent py-2 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"></textarea>
+                                    <textarea type="text" name="body" id="body" class="block flex-1 border-0 bg-transparent py-2 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"><?= $note['body'] ?? '' ?></textarea>
                                 </div>
+                                <?php if (isset($errors['body'])) : ?>
+                                    <span class="text-red-500 text-sm"><?= $errors['body']['message'] ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
 
                         <div class="w-full">
-                            <label class="block text-sm font-medium leading-6 text-gray-900">User</label>
+                            <label for="user_id" class="block text-sm font-medium leading-6 text-gray-900">User</label>
                             <div class="mt-2">
                                 <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                     <select name="user_id" id="user_id" class="block flex-1 border-0 bg-transparent py-2 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
                                         <?php foreach ($users as $user): ?>
-                                            <option value="<?php $user['id'] ?>"><?= $user['name'] ?></option>
+                                            <option value="<?= htmlspecialchars($user['id']) ?? '' ?>" <?= $user['id'] == $note['user_id'] ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($user['name']) ?>
+                                            </option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

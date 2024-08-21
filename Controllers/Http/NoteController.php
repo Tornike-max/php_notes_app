@@ -2,7 +2,6 @@
 
 namespace Controllers\Http;
 
-use Core\Validation;
 use Models\Database;
 use Models\Note;
 use Models\User;
@@ -48,24 +47,34 @@ class NoteController
         $id = $_GET['id'];
         $errors = [];
 
-
         $model = new Note();
         $data = getData();
 
-        $validation = new Validation();
-        $validation->validation($data['body'], [
-            'size' => 5,
-        ]);
-
-        if ($validation) {
-            return view('../../View/notes/edit.note.php', [
+        if (strlen($data['body']) < 5) {
+            $errors = [
+                'body' => [
+                    'message' => 'Body needs to be at least 5 characters long'
+                ],
+            ];
+            return view('../View/notes/edit.note.php', [
+                'note' => $model->findOrFail('notes', $id),
                 'errors' => $errors
             ]);
         }
-        $note = $model->update('notes', $id, $data);
+
+        $validatedData = [
+            'body' => $data['body'],
+            'user_id' => $data['user_id']
+        ];
+
+        $note = $model->update('notes', $id, $validatedData);
+
         if (isset($note)) {
-            header('Location: /edit');
+            header("Location: /");
         } else {
+            return view("../View/notes/edit.note.php", [
+                'errors' => ['error' => 'Something went wrong']
+            ]);
         }
     }
 
