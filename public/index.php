@@ -15,5 +15,7 @@ $router->put('/update', [NoteController::class, 'update']);
 $router->delete('/delete', [NoteController::class, 'delete']);
 
 $router->get('/create', [NoteController::class, 'create']);
+$router->post('/store', [NoteController::class, 'store']);
+
 
 $router->register();

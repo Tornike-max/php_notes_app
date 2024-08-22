@@ -97,4 +97,21 @@ class Database
             return false;
         }
     }
+
+
+    public function create($table, $attributes)
+    {
+        extract($attributes);
+        $this->statement = $this->pdo->prepare("insert into $table (body,user_id) values(:body,:user_id)");
+        $this->statement->bindValue(':body', $data['body']);
+        $this->statement->bindValue(':user_id', $data['user_id']);
+
+        if (!$this->statement->execute()) {
+            header('Location: /');
+            return false;
+        } else {
+            header('Location: /');
+            return true;
+        }
+    }
 }

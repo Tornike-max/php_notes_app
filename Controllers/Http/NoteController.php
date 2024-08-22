@@ -35,9 +35,33 @@ class NoteController
         ]);
     }
 
-    public function create() {}
+    public function create()
+    {
+        $model = new Database();
+        $users = $model->query('select * from users');
 
-    public function store() {}
+        if (empty($users)) {
+            return;
+        }
+
+        return view(
+            '../view/notes/create.note.php',
+            [
+                'users' => $users
+            ]
+        );
+    }
+
+    public function store()
+    {
+        $data = $_POST;
+        $notes = new Database();
+
+        $notes->create('notes', [
+            'data' => $data
+        ]);
+        dd($data);
+    }
 
     public function edit()
     {
