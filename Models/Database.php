@@ -85,4 +85,16 @@ class Database
             throw new PDOException("Failed to update record in $table");
         }
     }
+
+    public function delete($table, $id)
+    {
+        $this->statement = $this->pdo->prepare("delete from $table where id = :id");
+        $this->statement->bindValue(':id', $id);
+
+        if ($this->statement->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

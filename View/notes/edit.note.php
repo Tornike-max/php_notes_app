@@ -51,3 +51,4 @@
         </form>
     </div>
 </main>
+<?php require __DIR__ . '/../templates/htmlFooter.php'  ?>

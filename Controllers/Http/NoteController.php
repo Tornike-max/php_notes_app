@@ -18,7 +18,22 @@ class NoteController
         ]);
     }
 
-    public function show() {}
+    public function show()
+    {
+        $id = $_GET['id'];
+        $model = new Note();
+
+        $note = $model->leftJoin('users', 'notes', $id);
+
+
+        if (empty($note)) {
+            return view('../view/404.php');
+        }
+
+        return view('../view/notes/show.note.php', [
+            'note' => $note
+        ]);
+    }
 
     public function create() {}
 
@@ -78,5 +93,18 @@ class NoteController
         }
     }
 
-    public function destroy() {}
+    public function delete()
+    {
+        $id = $_GET['id'];
+        $model = new Note();
+        $note = $model->findOrFail('notes', $id);
+        if (isset($note)) {
+            $model->delete('notes', $note['id']);
+            header('Location: /');
+            exit();
+        } else {
+            header('Location: /');
+            exit();
+        }
+    }
 }

@@ -19,10 +19,13 @@
                         <td class="py-2 px-2"><?= $note['id']; ?></td>
                         <td class="py-2 px-2"><?= $note['body']; ?></td>
                         <td class="py-2 px-2"><?= $note['user_id']; ?></td>
-                        <td class="py-2 px-2">
+                        <td class="py-2 px-2 flex items-center gap-2">
+                            <a href="/show?id=<?= $note['id'] ?>" class="py-2 px-3 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white duration-150 transition-all">Show</a>
                             <a href="/edit?id=<?= $note['id'] ?>" class="py-2 px-3 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white duration-150 transition-all">Edit</a>
-                            <button class="py-2 px-3 rounded-md bg-red-500 hover:bg-red-600 text-white duration-150 transition-all">Delete</button>
-
+                            <form method="POST" action="/delete?id=<?= $note['id'] ?>">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="py-2 px-3 rounded-md bg-red-500 hover:bg-red-600 text-white duration-150 transition-all">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
