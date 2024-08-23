@@ -4,7 +4,6 @@ namespace Controllers\Http;
 
 use Models\Database;
 use Models\Note;
-use Models\User;
 
 class NoteController
 {
