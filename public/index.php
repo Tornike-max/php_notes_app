@@ -19,6 +19,14 @@ $router->get('/create', [NoteController::class, 'create']);
 $router->post('/store', [NoteController::class, 'store']);
 
 $router->get('/users', [UserController::class, 'index']);
+$router->get('/users/show', [UserController::class, 'show']);
+$router->get('/users/create', [UserController::class, 'create']);
+$router->post('/users/store', [UserController::class, 'store']);
+
+
+$router->delete('/user/delete', [UserController::class, 'delete']);
+
+
 
 
 $router->register();
