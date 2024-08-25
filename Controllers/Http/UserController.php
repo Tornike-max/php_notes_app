@@ -86,12 +86,15 @@ class UserController
             ]);
         }
 
+
         $model = new User();
+
         $validatedData = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_DEFAULT)
         ];
+
         $user = $model->create('users', $validatedData);
 
         if ($user) {

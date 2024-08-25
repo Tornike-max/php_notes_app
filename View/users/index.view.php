@@ -3,9 +3,6 @@
 <?php require __DIR__ . '/../templates/header.php'  ?>
 
 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-    <div class="my-4">
-        <a href="/users/create" class="py-2 px-3 rounded-lg bg-blue-500 hover:bg-blue-600 duration-150 transition-all text-white">Create</a>
-    </div>
     <table class="w-full">
         <thead class="w-full bg-gray-100">
             <tr class="w-full text-lg">
@@ -38,4 +35,4 @@
 </div>
 
 
-<?php require __DIR__ . '/../templates/htmlFooter.php'  ?>
+<?php require __DIR__ . '/../templates/htmlFooter.php'  ?>d

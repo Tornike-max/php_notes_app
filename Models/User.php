@@ -11,9 +11,9 @@ class User extends Database
         parent::__construct();
     }
 
-    public function create($table, $attributes)
+    public function create($table, $validatedData)
     {
-        extract($attributes);
+
 
         $this->statement = $this->pdo->prepare("insert into $table (name,email,password) values(:name,:email,:password)");
         $this->statement->bindValue(':name', $validatedData['name']);
@@ -26,6 +26,22 @@ class User extends Database
         } else {
             header('Location: /users');
             return true;
+        }
+    }
+
+    public function attempt($data)
+    {
+        $this->statement = $this->pdo->prepare('select * from users where email = :email');
+        $this->statement->bindValue(':email', $data['email']);
+
+        if ($this->statement->execute()) {
+            $user = $this->statement->fetch();
+            if (password_verify($data['password'], $user['password'])) {
+                $_SESSION['user'] = $user;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
